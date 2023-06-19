@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ParayerTime extends StatefulWidget {
   const ParayerTime({super.key});
@@ -40,23 +41,21 @@ class _ParayerTimeState extends State<ParayerTime> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
-            height: 100,
+           Padding(
+            padding: EdgeInsets.symmetric(vertical: 50.0),
           ),
           Center(
-              child: Container(
-            height: 150,
-            width: 150,
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.amberAccent,
-              strokeWidth: 8,
-              color: Colors.green,
-              // the valueColor property takes the preference
-              // over color property
-              valueColor: AlwaysStoppedAnimation(Colors.red),
-              value: _counter,
+            child: new CircularPercentIndicator(
+              animation: true,
+              animationDuration: 10000,
+              radius: 90,
+              lineWidth: 7,
+              percent: 1,
+              center: Text(" صلاة العصر" ),
+              progressColor: Colors.blueGrey[700],
+              backgroundColor: Colors.grey,
             ),
-          )),
+          ),
         ],
       ),
     );
