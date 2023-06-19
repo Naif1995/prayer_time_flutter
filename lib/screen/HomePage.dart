@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 20,
-        selectedIconTheme: IconThemeData(color: Colors.amberAccent, size: 40),
+        selectedIconTheme: IconThemeData(color: Colors.red, size: 40),
         selectedItemColor: Colors.amberAccent,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         currentIndex: _selectedIndex, //New
