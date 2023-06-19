@@ -36,10 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedFontSize: 20,
-        selectedIconTheme: IconThemeData(color: Colors.red, size: 40),
-        selectedItemColor: Colors.amberAccent,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        
+        // selectedFontSize: 20,
+        // selectedIconTheme: IconThemeData(color: Theme.of(context).cardColor, size: 40),
+        // selectedItemColor: Colors.amberAccent,
+        // selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         currentIndex: _selectedIndex, //New
         onTap: _onItemTapped,
         items: const [

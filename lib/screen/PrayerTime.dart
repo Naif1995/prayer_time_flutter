@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import '../enum/parayer.dart';
+
 class ParayerTime extends StatefulWidget {
   const ParayerTime({super.key});
 
@@ -13,27 +15,6 @@ class _ParayerTimeState extends State<ParayerTime> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _incrementCounter();
-    print("Test");
-  }
-
-  double _counter = 0;
-
-  _incrementCounter() async {
-    for (var i = 0; i < 10000; i++) {
-      //Loop 100 times
-      await Future.delayed(const Duration(milliseconds: 16), () {
-        // Delay 500 milliseconds
-        setState(() {
-          if (_counter < 1.0) {
-            _counter = _counter + 0.00166; //Increment Counter
-          }
-          if (_counter > 1.0) {
-            _counter = 1.0;
-          }
-        });
-      });
-    }
   }
 
   @override
@@ -41,21 +22,29 @@ class _ParayerTimeState extends State<ParayerTime> {
     return Scaffold(
       body: Column(
         children: [
-           Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 50.0),
           ),
           Center(
-            child: new CircularPercentIndicator(
+            child: CircularPercentIndicator(
               animation: true,
               animationDuration: 10000,
-              radius: 90,
-              lineWidth: 7,
+              radius: 120,
+              lineWidth: 20,
               percent: 1,
-              center: Text(" صلاة العصر" ),
-              progressColor: Colors.blueGrey[700],
-              backgroundColor: Colors.grey,
+              center: Text("12:10:10",
+                  style: TextStyle(
+                      color: Colors.grey[800],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40)),
             ),
           ),
+          SizedBox(height: 30,),
+          Text(PrayerTime.asr.nameInArabic,
+              style: TextStyle(
+                  color: Colors.grey[800],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40))
         ],
       ),
     );
