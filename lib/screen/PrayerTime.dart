@@ -16,32 +16,17 @@ class ParayerTime extends StatefulWidget {
 class _ParayerTimeState extends State<ParayerTime>
     with SingleTickerProviderStateMixin {
   Timer? countdownTimer;
-  Duration myDuration = Duration(seconds: 30);
-
-
-
+  Duration myDuration = Duration(minutes: 30);
 
   @override
   void initState() {
     super.initState();
-print("start");
     startTimer();
   }
 
   void startTimer() {
     countdownTimer =
         Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
-  }
-
-  // Step 4
-  void stopTimer() {
-    setState(() => countdownTimer!.cancel());
-  }
-
-  // Step 5
-  void resetTimer() {
-    stopTimer();
-    setState(() => myDuration = Duration(days: 5));
   }
 
   // Step 6
@@ -58,8 +43,7 @@ print("start");
   }
 
   Widget build(BuildContext context) {
-
-String strDigits(int n) => n.toString().padLeft(2, '0');
+    String strDigits(int n) => n.toString().padLeft(2, '0');
     final days = strDigits(myDuration.inDays);
     // Step 7
     final hours = strDigits(myDuration.inHours.remainder(24));
@@ -78,29 +62,58 @@ String strDigits(int n) => n.toString().padLeft(2, '0');
               radius: 120,
               lineWidth: 20,
               percent: 1,
-              center: Container(
-                color: Colors.amber,
-                child: Text(
-                  '$hours:$minutes:$seconds',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    inherit: false,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 30),
-                ),
-              ),
-              footer: Container(
-                margin: EdgeInsets.symmetric(horizontal: 30),
-                color: Colors.amber,
-                child: Text(
-                  '$hours:$minutes:$seconds',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 30),
-                ),
+              center: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 45,
+                        child: Text(
+                          '$hours :',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 45,
+                        child: Text(
+                          ' $minutes :',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 45,
+                        child: Text(
+                          '$seconds',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
