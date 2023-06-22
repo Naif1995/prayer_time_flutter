@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:adhan_dart/adhan_dart.dart';
+import 'package:timezone/timezone.dart';
 import '../enum/parayer.dart';
 
 class ParayerTime extends StatefulWidget {
@@ -17,10 +20,39 @@ class _ParayerTimeState extends State<ParayerTime>
     with SingleTickerProviderStateMixin {
   Timer? countdownTimer;
   Duration myDuration = Duration(minutes: 30);
+  late Location location;
+  late DateTime date;
+  late Coordinates coordinates;
+  late CalculationParameters params;
+  late PrayerTimes prayerTimes;
 
   @override
   void initState() {
     super.initState();
+    tz.initializeTimeZones();
+    location = tz.getLocation('Asia/Riyadh');
+
+    // Definitions
+    date = tz.TZDateTime.from(DateTime.now(), location);
+    coordinates = Coordinates(24.774265, 46.738586);
+
+    // Parameters
+    params = CalculationMethod.UmmAlQura();
+    params.madhab = Madhab.Hanafi;
+    prayerTimes = PrayerTimes(coordinates, date, params, precision: true);
+    DateTime fajrTime = tz.TZDateTime.from(prayerTimes.fajr!, location);
+    DateTime sunriseTime = tz.TZDateTime.from(prayerTimes.sunrise!, location);
+    DateTime dhuhrTime = tz.TZDateTime.from(prayerTimes.dhuhr!, location);
+    DateTime asrTime = tz.TZDateTime.from(prayerTimes.asr!, location);
+    DateTime maghribTime = tz.TZDateTime.from(prayerTimes.maghrib!, location);
+    DateTime ishaTime = tz.TZDateTime.from(prayerTimes.isha!, location);
+    print('\n***** Prayer Times');
+    print('fajrTime:\t$fajrTime');
+    print('sunriseTime:\t$sunriseTime');
+    print('dhuhrTime:\t$dhuhrTime');
+    print('asrTime:\t$asrTime');
+    print('maghribTime:\t$maghribTime');
+    print('ishaTime:\t$ishaTime');
     startTimer();
   }
 
@@ -41,6 +73,8 @@ class _ParayerTimeState extends State<ParayerTime>
       }
     });
   }
+
+  getPrayerTime() {}
 
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
